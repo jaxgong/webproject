@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="${jdbc_url}?useUnicode=true&amp;characterEncoding=UTF-8&amp;user=${jdbc_user}&amp;password=${jdbc_password}&amp;zeroDateTimeBehavior=convertToNull" />
+		<property name="username" value="${jdbc_user}" />
+		<property name="password" value="${jdbc_password}" />
+		<!-- <property name="idleConnectionTestPeriod" value="60" /> -->
+		<property name="idleMaxAge" value="240" />
+		<property name="maxConnectionsPerPartition" value="30" />
+		<property name="minConnectionsPerPartition" value="10" />
+		<property name="partitionCount" value="1" />
+		<property name="acquireIncrement" value="5" />
+		<!-- <property name="statementsCacheSize" value="100" /> -->
+		<!-- <property name="releaseHelperThreads" value="3" /> -->
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+	
+	<bean id="momentsDataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="${jdbc_url_moments}?useUnicode=true&amp;characterEncoding=UTF-8&amp;user=${jdbc_user_moments}&amp;password=${jdbc_password_moments}&amp;zeroDateTimeBehavior=convertToNull" />
+		<property name="username" value="${jdbc_user_moments}" />
+		<property name="password" value="${jdbc_password_moments}" />
+		<!-- <property name="idleConnectionTestPeriod" value="60" /> -->
+		<property name="idleMaxAge" value="240" />
+		<property name="maxConnectionsPerPartition" value="30" />
+		<property name="minConnectionsPerPartition" value="10" />
+		<property name="partitionCount" value="1" />
+		<property name="acquireIncrement" value="5" />
+		<!-- <property name="statementsCacheSize" value="100" /> -->
+		<!-- <property name="releaseHelperThreads" value="3" /> -->
+	</bean>
+	
+	<bean id="momentsJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="momentsDataSource" />
+	</bean>
+	
+</beans>
