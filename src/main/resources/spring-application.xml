@@ -38,6 +38,6 @@
 	
     <bean id="SpringContextUtil" class="nagaseiori.commons.utils.SpringContextUtil"/>
     <bean id="propertiesConfig" class="nagaseiori.commons.component.PropertiesConfig">
-    	<property name="redis" value="WEB-INF/classes/config/redis.properties" />
+    	<property name="redis" value="classpath:config/redis.properties" />
     </bean>
 </beans>
