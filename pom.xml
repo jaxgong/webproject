@@ -8,6 +8,26 @@
 	<name>nagaseiori Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+	<profiles>
+		<!-- 测试环境 -->
+		<profile>
+			<id>test</id>
+			<properties>
+				<env>test</env>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault><!--必须指定否则会报错， 默认启用的环境配置 -->
+			</activation>
+		</profile>
+		<!-- 生产环境 -->
+		<profile>
+			<id>production</id>
+			<properties>
+				<env>production</env>
+			</properties>
+		</profile>
+	</profiles>
+
 	<!-- jar版本统一管理，解决版本冲 -->
 	<properties>
 		<java_source_version>1.8</java_source_version>
@@ -138,29 +158,12 @@
 			<version>0.8.0.RELEASE</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.4.4</version>
-		</dependency>
-		
-		
 	</dependencies>
 
 	<build>
+		<finalName>webproject</finalName>
 		<!-- 指定maven 编译的JDK版本和编码格式 -->
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>${file.encoding}</encoding>
-				</configuration>
-			</plugin>
-			
 			<!-- 将依赖的jar包导入到指定目录去 -->
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -176,34 +179,55 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java_source_version}</source>
+					<target>${java_source_version}</target>
 					<encoding>${file.encoding}</encoding>
 				</configuration>
 			</plugin>
 			
 		</plugins>
 		
+		<filters>
+          <filter>src/main/resources/config/package/jdbcTemplate.${env}.properties</filter>
+          <filter>src/main/resources/config/package/mongodb.${env}.properties</filter>
+          <filter>src/main/resources/config/package/redis.${env}.properties</filter>
+		</filters>
+		  
+		
 		<!-- 将编译文件指定到指定路径 -->
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>config/package/*</exclude>
+				</excludes>
+				<filtering>true</filtering>
 			</resource>
 		</resources>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 		
-		
-		<!-- <pluginManagement>
+		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat7-maven-plugin</artifactId>    这里也可以使用tomcat7-maven-plugin
-					<version>2.2</version>   最新版本
+					<artifactId>tomcat7-maven-plugin</artifactId> 
+					<version>2.2</version>
 					<configuration>
 						<path>/webproject</path>
-						<url>http://localhost:8080/manager/text</url>    配置远程tomcat的路劲
+						<url>http://localhost:8080/manager/text</url>
 						<username>admin</username>
 						<password>admin</password>
-						<uriEncoding>${file.encoding}</uriEncoding>   tomcat的url编码 达到和修改server.xml文件一样的功能
+						<uriEncoding>${file.encoding}</uriEncoding>
 						<server>tomcat7</server>
 					</configuration>
 				</plugin>
@@ -234,52 +258,7 @@
 					</configuration>
 				</plugin>
 			</plugins>
-		</pluginManagement> -->
+		</pluginManagement>
 	</build>
 
-	<!-- 私服链接 -->
-	<repositories>
-		<repository>
-			<id>nexus</id>
-			<name>my-nexus-repository</name>
-			<url>http://192.168.18.14:8080/nexus/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>nexus</id>
-			<name>my-nexus-repository</name>
-			<url>http://192.168.18.14:8080/nexus/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-
-	<!-- 私服部署 -->
-	<distributionManagement>
-		<site>
-			<id>website</id>
-			<url>scp://webhost.company.com/www/website</url>
-		</site>
-		<repository>
-			<id>releases</id>
-			<name>Internal Releases</name>
-			<url>http://192.168.18.14:8080/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>Internal Snapshots</name>
-			<url>http://192.168.18.14:8080/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>
