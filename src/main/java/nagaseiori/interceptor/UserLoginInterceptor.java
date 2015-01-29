@@ -1,6 +1,5 @@
 package nagaseiori.interceptor;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,10 +10,10 @@ import nagaseiori.commons.annotations.NoRequireLogin;
 import nagaseiori.commons.constants.DefaultConstants;
 import nagaseiori.commons.utils.AnnontationUtils;
 import nagaseiori.commons.utils.CookieUtils;
+import nagaseiori.commons.utils.Log;
 
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,7 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class UserLoginInterceptor implements HandlerInterceptor {
 
-	private Log logger = LogFactory.getLog(UserLoginInterceptor.class);
+	private Logger logger = Log.getLogger(UserLoginInterceptor.class);
 
 	private final String START_TIME = "_STARTTIME_";
 
@@ -41,7 +40,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
 		long startTime = System.currentTimeMillis();
 		request.setAttribute(START_TIME, startTime);
 		HandlerMethod method = (HandlerMethod) handler;
-		Method proxyMethod = method.getMethod();
+		//Method proxyMethod = method.getMethod();
 		Object controller = method.getBean();
 		HttpSession session = request.getSession();
 		Object currentUserObj = session.getAttribute(DefaultConstants.CURRENT_USER);

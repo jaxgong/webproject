@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import nagaseiori.commons.utils.Log;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 
 public class PropertiesConfig implements InitializingBean{
 	
-	private final static Log logger = LogFactory.getLog(PropertiesConfig.class);
+	private final static Logger logger = Log.getLogger(PropertiesConfig.class);
 	private Resource redis;
 	private Map<String,String> props = new HashMap<String,String>();
 	

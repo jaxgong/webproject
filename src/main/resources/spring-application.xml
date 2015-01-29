@@ -32,7 +32,6 @@
 		<!-- 扫描符合@Service @Repository的类 -->
 		<context:include-filter type="regex" expression="nagaseiori.service.*"/>
 		<context:include-filter type="regex" expression="nagaseiori.dao.*"/>
-		<!-- 定时任务 -->
 		<context:include-filter type="regex" expression="nagaseiori.commons.component.*"/>
 	</context:component-scan>
 	

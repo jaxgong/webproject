@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Scanner;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
