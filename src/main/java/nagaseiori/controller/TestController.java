@@ -7,6 +7,7 @@ import nagaseiori.commons.utils.RtnUtil;
 import nagaseiori.models.amqp.WritingDataProcesser;
 import nagaseiori.service.amqp.AmqpWritingDataService;
 
+import org.springframework.amqp.support.converter.SerializerMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

@@ -30,6 +30,6 @@
 	<rabbit:listener-container acknowledge="auto"
 		connection-factory="rabbitConnectionFactory" concurrency="${rabbit.listener.concurrency}"
 		prefetch="${rabbit.listener.prefetch}">
-		<rabbit:listener ref="amqpWritingDataService" queues="writingDataQueue" />
+		<rabbit:listener ref="amqpWritingDataListener" queues="writingDataQueue" />
 	</rabbit:listener-container>
 </beans>
