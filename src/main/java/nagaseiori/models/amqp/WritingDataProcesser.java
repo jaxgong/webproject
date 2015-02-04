@@ -23,5 +23,9 @@ public class WritingDataProcesser implements Serializable{
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+	@Override
+	public String toString() {
+		return "WritingDataProcesser [msgId=" + msgId + ", userId=" + userId + "]";
+	}
 	
 }

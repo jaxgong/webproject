@@ -52,14 +52,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
 			if (imToken == null) {
 				logger.error("invalid request  request url:  " + request.getRequestURL() + "?" + request.getQueryString());
 			} else {
-//				String userIdStr = DesCrypto.decrypt(imToken, DefaultConstants.DES_CRYPTO_SECRET_APP);
-//				int userId = NumberUtils.toInt(userIdStr);
-//				Map<String, Object> syncUserMap = userInfoService.findSyncUserByCondition("userId", userId);
-//				if(syncUserMap != null){
-//					currentUserObj = syncUserMap;
-//				}else{
-//					logger.error("no such user");
-//				}
+				
 			}
 		}
 		final NoRequireLogin noRequire = AnnontationUtils.getFromMethedOrType(NoRequireLogin.class, method);

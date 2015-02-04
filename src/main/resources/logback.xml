@@ -22,7 +22,7 @@
         </encoder>
     </appender>
  
- <!-- 时间滚动输出 level为 DEBUG 日志 -->
+ 	<!-- 时间滚动输出 level为 DEBUG 日志 -->
     <appender name="debugFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>DEBUG</level>
@@ -55,7 +55,7 @@
     </appender>
 	
 	<!-- project default level -->
-	<logger name="org.springframework.web" level="warn" />
+	<logger name="org.springframework.web" level="debug" />
     <logger name="nagaseiori" level="debug" />
  
     <!--log4jdbc -->

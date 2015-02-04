@@ -10,13 +10,20 @@
             http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd" >
     
-    <!-- 隐式地向 Spring 容器注册  -->
-	<context:annotation-config/>
-    
 	<!-- 自动扫描bean，把作了注解的类转换为bean -->  
-	<context:component-scan base-package="nagaseiori.controller.*"/>
+	<context:component-scan base-package="nagaseiori.controller"/>
+	<!-- 激活@Controller模式 -->
+    <mvc:annotation-driven />
     
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+    <bean id="mappingFastjsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+    
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>  
 				<ref bean="mappingFastjsonHttpMessageConverter"/>
@@ -24,25 +31,14 @@
 		</property>
 	</bean>
 	
-	<bean id="mappingFastjsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/html;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>
-	
-	<!-- 激活@Controller模式 -->
-    <mvc:annotation-driven />
-
-	<mvc:interceptors>
+<!-- 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/**/unlogin/**"/>
-	        <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->  
+	        使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求  
 	        <bean class="nagaseiori.interceptor.UserLoginInterceptor"/>
 		</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -51,7 +47,6 @@
 		<property name="prefix" value="/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
 	
 	<!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->  
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  

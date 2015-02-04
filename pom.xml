@@ -45,10 +45,15 @@
 	<!--dependencyManagement 动态jar包管理，父模块定义，子模块使用是添加引用即可 -->
 	<!-- <dependencyManagement><dependencies></dependencies></dependencyManagement> -->
 	<dependencies>
-	
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 	
@@ -77,6 +82,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
@@ -163,7 +174,6 @@
           <filter>src/main/resources/config/package/redis.${env}.properties</filter>
 		</filters>
 		  
-		
 		<!-- 将编译文件指定到指定路径 -->
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>
@@ -192,7 +202,6 @@
 						<server>tomcat7</server>
 					</configuration>
 				</plugin>
-
 
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>

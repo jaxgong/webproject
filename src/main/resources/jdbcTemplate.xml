@@ -15,7 +15,7 @@
 		<property name="username" value="${jdbc_user}" />
 		<property name="password" value="${jdbc_password}" />
 		<!-- <property name="idleConnectionTestPeriod" value="60" /> -->
-		<property name="idleMaxAge" value="240" />
+		<property name="idleMaxAgeInSeconds" value="14400" />
 		<property name="maxConnectionsPerPartition" value="30" />
 		<property name="minConnectionsPerPartition" value="10" />
 		<property name="partitionCount" value="1" />
@@ -35,7 +35,7 @@
 		<property name="username" value="${jdbc_user_moments}" />
 		<property name="password" value="${jdbc_password_moments}" />
 		<!-- <property name="idleConnectionTestPeriod" value="60" /> -->
-		<property name="idleMaxAge" value="240" />
+		<property name="idleMaxAgeInSeconds" value="14400" />
 		<property name="maxConnectionsPerPartition" value="30" />
 		<property name="minConnectionsPerPartition" value="10" />
 		<property name="partitionCount" value="1" />

@@ -17,10 +17,14 @@ public class AmqpWritingDataService implements MessageListener{
 	
 	@Override
 	public void onMessage(Message message) {
-		System.out.println("receive and convert" + amqpTemplate.receiveAndConvert());
+		message.getBody();
+		
+	    WritingDataProcesser processer = (WritingDataProcesser) amqpTemplate.receiveAndConvert("writingdbtest_queue");
+		System.out.println("receive and convert" + message);
 	}
 
 	public void writeData2Mq(WritingDataProcesser message){
-		amqpTemplate.convertAndSend("send message");
+		amqpTemplate.convertAndSend("writing_queue", "", message);
+		
 	}
 }
