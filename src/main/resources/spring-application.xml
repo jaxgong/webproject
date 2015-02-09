@@ -27,7 +27,9 @@
 
 	<import resource="redis.xml" />
 	<import resource="jdbcTemplate.xml" />
-	<import resource="rabbit.xml"/>
+	<!-- 使用时请确保rabbitMQ服务端已经启动,否则会报队列监听异常
+		<import resource="rabbit.xml"/> 
+	-->
 	
 	<!-- use-default-filters为false 让base-package失效 采用context:include-filter定制 -->
 	<!-- 定义扫描根路径为com.niiwoo.web，不使用默认的扫描方式 -->	
