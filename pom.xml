@@ -37,8 +37,6 @@
 		<spring.version>4.1.4.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<jackson.version>1.9.13</jackson.version>
-		<spring.redis.version>1.4.1.RELEASE</spring.redis.version>
-		<redis.version>2.5.2</redis.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
@@ -58,21 +56,9 @@
 		</dependency>
 	
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-redis</artifactId>
-			<version>${spring.redis.version}</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.amqp</groupId>
-			<artifactId>spring-rabbit</artifactId>
-			<version>1.4.2.RELEASE</version>
 		</dependency>
 
 		<dependency>
@@ -119,17 +105,28 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>${redis.version}</version>
-		</dependency>
-		
-		<dependency>
 			<groupId>com.jolbox</groupId>
 			<artifactId>bonecp-spring</artifactId>
 			<version>0.8.0.RELEASE</version>
 		</dependency>
 		
+		<dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <version>2.0.3</version>
+            <scope>provided</scope>
+        </dependency>
+		
+		<dependency>
+			<groupId>com.loopj.android</groupId>
+            <artifactId>android-async-http</artifactId>
+            <version>1.4.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -170,8 +167,6 @@
 		
 		<filters>
           <filter>src/main/resources/config/package/jdbcTemplate.${env}.properties</filter>
-          <filter>src/main/resources/config/package/mongodb.${env}.properties</filter>
-          <filter>src/main/resources/config/package/redis.${env}.properties</filter>
 		</filters>
 		  
 		<!-- 将编译文件指定到指定路径 -->
@@ -187,48 +182,6 @@
 		</resources>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 		
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat7-maven-plugin</artifactId> 
-					<version>2.2</version>
-					<configuration>
-						<path>/webproject</path>
-						<url>http://localhost:8080/manager/text</url>
-						<username>admin</username>
-						<password>admin</password>
-						<uriEncoding>${file.encoding}</uriEncoding>
-						<server>tomcat7</server>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-dependency-plugin</artifactId>
-										<versionRange>[2.0,)</versionRange>
-										<goals>
-											<goal>copy-dependencies</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 </project>
